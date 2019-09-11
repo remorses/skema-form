@@ -236,7 +236,7 @@ const mapSchemaToComponents = (
                                     {fields.map((name, index) => {
                                         return (
                                             // <PropertyContainer key={name}>
-                                                <Row>
+                                                <Row key={name}>
                                                     {mapSchemaToComponents(
                                                         {
                                                             ...subset,
