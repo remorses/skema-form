@@ -1,11 +1,14 @@
 {
-  "name": "nodejs-lib-template",
+  "name": "skema-form",
   "_": "[bump]",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": ["/dist/*"],
+  "main": "src/index.jsx",
+  "types": "src/index.d.ts",
+  "files": [
+    "/components/*",
+    "/src/*"
+  ],
   "scripts": {
     "test": "mocha --require ts-node/register --timeout 10000 tests/* --colors"
   },
@@ -15,8 +18,39 @@
   "devDependencies": {
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.0.7",
+    "@types/react": "16.8.23",
     "mocha": "^6.1.4",
     "ts-node": "^8.2.0",
     "typescript": "^3.5.1"
+  },
+  "dependencies": {
+    "@types/color": "^3.0.0",
+    "@types/json-pointer": "^1.0.30",
+    "@types/styled-components": "^4.1.18",
+    "ajv": "^6.10.2",
+    "color": "^3.1.2",
+    "final-form": "^4.18.2",
+    "final-form-arrays": "^3.0.1",
+    "hybrid-components": "^2.0.21",
+    "json-pointer": "^0.6.0",
+    "lodash.clonedeep": "^4.5.0",
+    "react-final-form": "^6.3.0",
+    "react-final-form-arrays": "^3.1.0",
+    "react-redux": "^7.1.0",
+    "react-scripts": "3.0.1",
+    "styled-components": "^4.3.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "antd": "^3.20.7",
+    "@atlaskit/banner": "^10.0.8",
+    "@atlaskit/button": "^13.1.1",
+    "@atlaskit/checkbox": "^9.0.4",
+    "@atlaskit/flag": "^12.0.15",
+    "@atlaskit/inline-message": "^10.0.10",
+    "@atlaskit/radio": "^3.0.11",
+    "@atlaskit/range": "^3.0.3",
+    "@atlaskit/select": "^10.0.2",
+    "@atlaskit/textfield": "^2.0.5"
   }
 }

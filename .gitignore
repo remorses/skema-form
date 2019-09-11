@@ -7,7 +7,9 @@ yarn-error.log*
 .DS_Store
 play*
 dist/*
-
+*.jsx
+*.js
+*.d.ts
 # Runtime data
 pids
 *.pid
