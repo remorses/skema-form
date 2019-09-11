@@ -23,7 +23,7 @@ export const SchemaForm = ({
     components = { ...components }
     const validateSchema = React.useMemo(() => ajv.compile(schema), [schema])
     const validate = (data) => {
-        console.log('validating')
+        // console.log('validating')
         // console.log(JSON.stringify(ajv.errors, null, '\t'))
         const valid = validateSchema(data.root || {})
         // console.log(JSON.stringify(ajv.errors, null, '\t'))

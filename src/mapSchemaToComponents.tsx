@@ -82,13 +82,13 @@ const mapSchemaToComponents = (
                 <Field name={choiceKey} component={errorMessage} />
                 <Field name={choiceKey}>
                     {({ input: {value} }) => {
-                        console.log(value)
+                        // console.log(value)
                         if (!value) {
                             return null
                         }
                         const subset = schema.anyOf.find(x => x.title == value)
-                        console.log(subset)
-                        console.log(previousKey)
+                        // console.log(subset)
+                        // console.log(previousKey)
                         return (
                             <>
                                 {mapSchemaToComponents(
@@ -200,9 +200,9 @@ const mapSchemaToComponents = (
                             const { onChange } = input
                             input.value = input.value || []
                             input.onChange = (e) => {
-                                console.log(e)
+                                // console.log(e)
                                 const value = getEventValue(e) || []
-                                console.log('value', value)
+                                // console.log('value', value)
                                 return onChange(value.map(transform(subset)))
                             }
                             return (
