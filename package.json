@@ -6,8 +6,7 @@
   "main": "dist/src/index.jsx",
   "types": "dist/src/index.d.ts",
   "files": [
-    "/components/*",
-    "/src/*"
+    "/dist/*"
   ],
   "scripts": {
     "test": "mocha --require ts-node/register --timeout 10000 tests/* --colors"
