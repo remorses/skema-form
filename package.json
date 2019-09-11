@@ -16,8 +16,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.0.7",
-    "@types/react": "16.8.23",
     "mocha": "^6.1.4",
     "ts-node": "^8.2.0",
     "typescript": "^3.5.1"
@@ -25,6 +23,7 @@
   "dependencies": {
     "@types/color": "^3.0.0",
     "@types/json-pointer": "^1.0.30",
+    "@types/react": "^16.9.2",
     "@types/styled-components": "^4.1.18",
     "ajv": "^6.10.2",
     "color": "^3.1.2",

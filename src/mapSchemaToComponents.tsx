@@ -378,7 +378,7 @@ const mapSchemaToComponents = (
             )
         }
         default:
-            throw Error('not implemented')
+            throw Error(JSON.stringify(schema, null, '    ') + ' not implemented ')
     }
 }
 
