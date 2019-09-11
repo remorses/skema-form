@@ -88,6 +88,7 @@ export const SchemaForm = ({
     )
 }
 
+export default SchemaForm
 
 const nestProperty = (acc, parts, property) => {
     acc = clonedeep(acc)

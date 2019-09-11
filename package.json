@@ -2,9 +2,9 @@
   "name": "skema-form",
   "_": "[bump]",
   "version": "0.0.1",
-  "description": "",
-  "main": "src/index.jsx",
-  "types": "src/index.d.ts",
+  "description": "Generate forms based on json schema",
+  "main": "dist/src/index.jsx",
+  "types": "dist/src/index.d.ts",
   "files": [
     "/components/*",
     "/src/*"
@@ -35,14 +35,9 @@
     "json-pointer": "^0.6.0",
     "lodash.clonedeep": "^4.5.0",
     "react-final-form": "^6.3.0",
-    "react-final-form-arrays": "^3.1.0",
-    "react-redux": "^7.1.0",
-    "react-scripts": "3.0.1",
-    "styled-components": "^4.3.2"
+    "react-final-form-arrays": "^3.1.0"
   },
   "peerDependencies": {
-    "react": "^16.8.6",
-    "antd": "^3.20.7",
     "@atlaskit/banner": "^10.0.8",
     "@atlaskit/button": "^13.1.1",
     "@atlaskit/checkbox": "^9.0.4",
@@ -51,6 +46,9 @@
     "@atlaskit/radio": "^3.0.11",
     "@atlaskit/range": "^3.0.3",
     "@atlaskit/select": "^10.0.2",
-    "@atlaskit/textfield": "^2.0.5"
+    "@atlaskit/textfield": "^2.0.5",
+    "antd": "^3.20.7",
+    "react": "^16.8.6",
+    "styled-components": "^4.3.2"
   }
 }

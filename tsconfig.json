@@ -1,28 +1,25 @@
 {
-    "compilerOptions": {
-      "target": "es5",
+  "compilerOptions": {
+      "target": "es2017",
+      "module": "commonjs",
       "lib": [
-        "dom",
-        "dom.iterable",
-        "esnext"
+          "es2017",
+          "es7",
+          "es6",
+          // "dom"
       ],
-      "skipLibCheck": true,
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "strict": false,
-      "forceConsistentCasingInFileNames": true,
-      "module": "esnext",
-      "moduleResolution": "node",
-      "resolveJsonModule": true,
       "declaration": true,
-      // "noEmit": true,
-      "jsx": "preserve",
-      "noUnusedLocals": false,
-      "pretty": true
-    },
-    "include": [
-      "src",
-      "components", "components"
-    ]
-  }
-  
+      "outDir": "dist",
+      "strict": false,
+      "esModuleInterop": true,
+      "noImplicitAny": false,
+      "jsx": "react",
+  },
+  "include": [
+      "src", "components"
+  ],
+  "exclude": [
+      "node_modules",
+      "dist"
+  ]
+}
