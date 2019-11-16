@@ -9,7 +9,7 @@
             "description": ""
         },
         "y": {
-            "enum": [
+            "anyOf": [
                 {
                     "const": "Str"
                 },
