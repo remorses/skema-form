@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components'
 import 'antd/dist/antd.css' // TODO remove
 
@@ -82,6 +82,8 @@ const ErrorMessage = ({children}) => (
     <Alert style={{margin: '20px 0', padding: '2px 6px'}} message={children} type="error"/>
 )
 
+const Nothing = ({children}) => <>{children}</>
+
 export default {
     Checkbox,
     Button,
@@ -91,8 +93,8 @@ export default {
     Range,
     SingleSelect,
     MultiSelect,
-    RootContainer: Container,
-    ObjectContainer: Container,
+    RootContainer: Nothing,
+    ObjectContainer: Nothing,
     Label,
     ErrorMessage,
     PropertyContainer,

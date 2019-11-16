@@ -1,0 +1,5 @@
+
+
+Obj:
+    x: Str
+    y: "Str" | "cosa"

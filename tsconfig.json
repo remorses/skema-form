@@ -6,12 +6,14 @@
           "es2017",
           "es7",
           "es6",
-          // "dom"
+          "dom"
       ],
       "declaration": true,
       "outDir": "dist",
       "strict": false,
       "esModuleInterop": true,
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
       "noImplicitAny": false,
       "jsx": "react",
       "sourceMap": true

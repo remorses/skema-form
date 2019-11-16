@@ -9,7 +9,8 @@
     "/dist/*"
   ],
   "scripts": {
-    "test": "mocha --require ts-node/register --timeout 10000 tests/* --colors"
+    "test": "mocha --require ts-node/register --timeout 10000 tests/* --colors",
+    "example": "npm i --no-save react react-dom && parcel example/index.html"
   },
   "keywords": [],
   "author": "Tommaso De Rossi, morse <beats.by.morse@gmail.com>",

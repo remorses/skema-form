@@ -11,15 +11,23 @@ import mapSchemaToComponents from './mapSchemaToComponents'
 
 const ajv = new Ajv({ jsonPointers: true, allErrors: true })
 
+export interface Props {
+    components: Components
+    schema: any
+    onSubmit?: Function
+    onChange?: Function
+    value?: any
+    submitButton?: any
+}
 
 export const SchemaForm = ({
-    onSubmit,
+    onSubmit=data => alert(JSON.stringify(data)),
     schema,
-    components = {} as Components,
+    components,
     submitButton = null, // <button type='submit'>go</button>,
     onChange = ({value}) => null,
     value={} as any,
-}) => {
+}: Props) => {
     components = { ...components }
     const validateSchema = React.useMemo(() => ajv.compile(schema), [schema])
     const validate = (data) => {

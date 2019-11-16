@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Obj",
+    "description": "",
+    "type": "object",
+    "properties": {
+        "x": {
+            "type": "string",
+            "description": ""
+        },
+        "y": {
+            "enum": [
+                {
+                    "const": "Str"
+                },
+                {
+                    "const": "cosa"
+                }
+            ],
+            "description": ""
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "x",
+        "y"
+    ]
+}
