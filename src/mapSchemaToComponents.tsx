@@ -47,7 +47,6 @@ const mapSchemaToComponents = ({
                 name={previousKey}
                 label={label}
                 options={options}
-                placeholder={placeholder}
             />
         )
     }
@@ -86,7 +85,7 @@ const mapSchemaToComponents = ({
             }
 
         case 'string':
-            return <TextField name={previousKey} label={label} />
+            return <TextField placeholder={placeholder} name={previousKey} label={label} />
         case 'number':
             const {
                 minimum: min = null,

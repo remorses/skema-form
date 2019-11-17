@@ -6,7 +6,7 @@
     "properties": {
         "resolve": {
             "type": "boolean",
-            "description": ""
+            "description": "resolve refs"
         },
         "ref": {
             "type": "string",
@@ -17,7 +17,7 @@
                 "python",
                 "js"
             ],
-            "description": ""
+            "description": "choose lang"
         }
     },
     "additionalProperties": false,

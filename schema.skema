@@ -1,10 +1,16 @@
 
 
 Options:
+    """
+    resolve refs
+    """
     resolve: Bool
     """
     Reference to resolve or make root
     """
     ref: Str
+    """
+    choose lang
+    """
     language: "python" | "js"
 

@@ -76,7 +76,6 @@ export const Select = ({
     name,
     label = '',
     options=[],
-    placeholder='Choose an element',
     ...rest
 }: BaseProps & bp.IHTMLSelectProps & any) => {
     const { input, meta } = useField(name)
