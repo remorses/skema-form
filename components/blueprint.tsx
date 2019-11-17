@@ -15,6 +15,27 @@ interface BaseProps {
     label?: string
 }
 
+
+const getEventValue = (e) => {
+    let value
+    try {
+        value = e.target.value
+    } catch (err) {
+        // console.log('catched', err)
+        value = e
+    }
+    return value
+}
+
+const adaptInput = ({input, transformer=x => x, onChangeName='onChange'}) => {
+    const onChange = input.onChange
+    input[onChangeName] = (e) => {
+        const value = getEventValue(e)
+        return onChange(transformer(value))
+    }
+    return input
+}
+
 const styles: { [key: string]: React.CSSProperties } = {
     table: {
         width: '100%',
@@ -66,10 +87,23 @@ export const Switch = ({
     options=[],
     ...rest
 }: BaseProps & bp.IInputGroupProps & any) => {
-    const { input, meta } = useField(name)
+    const { input, meta } = useField(name, {type: 'checkbox'})
     return (
         <bp.FormGroup  helperText={<ErrorMessage meta={meta}/>}>
-            <bp.Switch large  label={label}  fill={true} {...input} {...rest} />
+            <bp.Switch large label={label} {...input} {...rest} />
+        </bp.FormGroup>
+    )
+}
+
+export const NumberInput = ({
+    name,
+    label = '',
+    ...rest
+}: BaseProps & bp.IInputGroupProps) => {
+    const { input, meta } = useField(name)
+    return (
+        <bp.FormGroup label={label} helperText={<ErrorMessage meta={meta}/>}>
+            <bp.NumericInput {...adaptInput({input, onChangeName: 'onValueChange'})} {...rest} />
         </bp.FormGroup>
     )
 }
