@@ -5,6 +5,15 @@ import styled from 'styled-components'
 import { FieldArray } from 'react-final-form-arrays'
 import { Components } from './types'
 import { Row, Hidden } from 'hybrid-components'
+import {
+    Select,
+    RootContainer,
+    PropertyContainer,
+    ObjectContainer,
+    TextField,
+    NumberInput,
+    Switch
+} from '../components/blueprint'
 
 const mapSchemaToComponents = ({
     schema,
@@ -13,35 +22,6 @@ const mapSchemaToComponents = ({
     skipValidation,
     formProps = {} as FormRenderProps
 }) => {
-    const {
-        Input,
-        InputNumber,
-        Checkbox,
-        Range,
-        Label,
-        ErrorMessage,
-        SingleSelect,
-        MultiSelect,
-        RadioOption,
-        Button,
-
-        RootContainer,
-        ObjectContainer,
-        PropertyContainer
-    } = components
-    const errorMessage = ({ meta }) => (
-        skipValidation ? <></> : <>
-            {/* {console.log(JSON.stringify(meta, null, '\t'))} */}
-            {meta.error && meta.touched ? (
-                <ErrorMessage>{meta.error}</ErrorMessage>
-            ) : (
-                <Hidden>
-                    <ErrorMessage>{'_'}</ErrorMessage>
-                </Hidden>
-            )}
-        </>
-    )
-
     // console.log('"' + schema.title + '"')
     const prettyKey = humanize(
         previousKey
@@ -50,123 +30,24 @@ const mapSchemaToComponents = ({
             .replace(/\[\d\]/, '')
     )
     const title = humanize(schema.title || '')
-    const desc = humanize(schema.description || title || previousKey || '')
-    if (schema.anyOf) {
-        const items: string[] = schema.anyOf.map((x) => x.title)
-        const choiceKey = previousKey + 'Choice'
-        return (
-            <>
-                {desc && <Label>{desc}</Label>}
-                {items.map((value) => {
-                    return (
-                        <Field
-                            type='radio'
-                            key={value + choiceKey}
-                            name={choiceKey}
-                            value={value}
-                        >
-                            {({ input, meta }) => {
-                                return (
-                                    <>
-                                        <RadioOption
-                                            key={'radio' + value}
-                                            {...input}
-                                        >
-                                            {value}
-                                        </RadioOption>
-                                    </>
-                                )
-                            }}
-                        </Field>
-                    )
-                })}
-                <Field name={choiceKey} component={errorMessage} />
-                <Field name={choiceKey}>
-                    {({ input: {value} }) => {
-                        // console.log(value)
-                        if (!value) {
-                            return null
-                        }
-                        const subset = schema.anyOf.find(x => x.title == value)
-                        // console.log(subset)
-                        // console.log(previousKey)
-                        return (
-                            <>
-                                {mapSchemaToComponents({
-                                    schema: subset,
-                                    components,
-                                    previousKey,
-                                    skipValidation,
-                                    formProps
-                                })}
-                            </>
-                        )
-                    }}
-                </Field>
-            </>
-        )
-    }
+    const desc = humanize(schema.description || title || prettyKey || '')
+    const label = desc
+
     if (schema.enum) {
         const transformer = transform(schema)
         const items = schema.enum.map(transformer)
-
-        if (items.length < 5) {
-            return (
-                <>
-                    {desc && <Label>{desc}</Label>}
-                    {items.map((value) => {
-                        return (
-                            <Field
-                                type='radio'
-                                key={previousKey + value}
-                                name={previousKey}
-                                value={value}
-                            >
-                                {({ input, meta }) => {
-                                    const { onChange } = input
-                                    input.onChange = (e) => {
-                                        const value = getEventValue(e)
-                                        return onChange(transformer(value))
-                                    }
-                                    return (
-                                        <>
-                                            <RadioOption
-                                                key={'radio' + value}
-                                                {...input}
-                                            >
-                                                {value}
-                                            </RadioOption>
-                                        </>
-                                    )
-                                }}
-                            </Field>
-                        )
-                    })}
-                    <Field name={previousKey} component={errorMessage} />
-                </>
-            )
-        } else {
-            return (
-                <Field key={previousKey + schema.title} name={previousKey}>
-                    {({ input, meta }) => {
-                        return (
-                            <>
-                                {desc && <Label>{desc}</Label>}
-                                <SingleSelect
-                                    items={items}
-                                    {...input}
-                                    placeholder={prettyKey}
-                                />
-                                <Field
-                                    name={previousKey}
-                                    component={errorMessage}
-                                />
-                            </>
-                        )
-                    }}
-                </Field>
-            )
-        }
+        const options = items.map((value) => ({
+            value,
+            label: humanize(value)
+        }))
+        return (
+            <Select
+                key={previousKey + schema.title}
+                name={previousKey}
+                label={label}
+                options={options}
+            />
+        )
     }
 
     switch (schema.type) {
@@ -197,124 +78,13 @@ const mapSchemaToComponents = ({
             const { items: subset = {} } = schema
             if (subset.enum) {
                 const items = subset.enum
-                return (
-                    <Field key={previousKey + schema.title} name={previousKey}>
-                        {({ input, meta }) => {
-                            const { onChange } = input
-                            input.value = input.value || []
-                            input.onChange = (e) => {
-                                // console.log(e)
-                                const value = getEventValue(e) || []
-                                // console.log('value', value)
-                                return onChange(value.map(transform(subset)))
-                            }
-                            return (
-                                <>
-                                    {desc && <Label>{desc}</Label>}
-                                    <MultiSelect
-                                        items={items}
-                                        {...input}
-                                        placeholder={prettyKey}
-                                    />
-                                    <Field
-                                        name={previousKey}
-                                        component={errorMessage}
-                                    />
-                                </>
-                            )
-                        }}
-                    </Field>
-                )
+                throw Error('not implemented')
             } else if (subset.type === 'string' || subset.type === 'number') {
-                const defaultValue = subset.type === 'string' ? '' : null
-                return (
-                    // <ObjectContainer key={previousKey + schema.title} currentKey={previousKey}>
-                    <>
-                        {desc && <Label>{desc}</Label>}
-                        <FieldArray name={previousKey}>
-                            {(
-                                { fields } // TODO style array
-                            ) => (
-                                <>
-                                    {fields.map((name, index) => {
-                                        return (
-                                            // <PropertyContainer key={name}>
-                                                <Row key={name}>
-                                                    {mapSchemaToComponents({
-                                                        schema: {
-                                                            ...subset,
-                                                            description: '',
-                                                            title: ''
-                                                        },
-                                                        components,
-                                                        skipValidation,
-                                                        previousKey: name,
-                                                        formProps
-                                                    })}
-                                                    <Button
-                                                        onClick={() =>
-                                                            fields.remove(index)
-                                                        }
-                                                    >
-                                                        x
-                                                    </Button>
-                                                </Row>
-                                            // </PropertyContainer>
-                                        )
-                                    })}
-                                    
-                                        <Button
-                                            onClick={() => {
-                                                const values =
-                                                    fields.value || []
-                                                if (
-                                                    values.filter(
-                                                        (x) =>
-                                                            x === defaultValue
-                                                    ).length
-                                                ) {
-                                                    return
-                                                }
-                                                formProps.form.mutators.push(
-                                                    previousKey,
-                                                    ''
-                                                )
-                                            }}
-                                        >
-                                            Add Item
-                                        </Button>
-                                        <Field
-                                            name={previousKey}
-                                            component={errorMessage}
-                                        />
-                                    </>
-
-                            )}
-                        </FieldArray>
-                        {/* </ObjectContainer> */}
-                    </>
-                )
+                throw Error('not implemented')
             }
 
         case 'string':
-            return (
-                <Field key={previousKey + schema.title} name={previousKey}>
-                    {({ input, meta }) => (
-                        <>
-                            {desc && <Label>{desc}</Label>}
-                            <Input
-                                type='text'
-                                {...input}
-                                placeholder={prettyKey}
-                            />
-                            <Field
-                                name={previousKey}
-                                component={errorMessage}
-                            />
-                        </>
-                    )}
-                </Field>
-            )
+            return <TextField name={previousKey} label={label} />
         case 'number':
             const {
                 minimum: min = null,
@@ -322,67 +92,14 @@ const mapSchemaToComponents = ({
                 multipleOf: step = 0.1
             } = schema
             const transformer = transform(schema)
-            return (
-                <Field key={previousKey + schema.title} name={previousKey}>
-                    {({ input, meta }) => {
-                        const { onChange } = input
-                        input.value = input.value || min
-                        delete input.type // bug with atlaskit
-                        input.onChange = (e) => {
-                            const value = getEventValue(e)
-                            return onChange(transformer(value))
-                        }
-                        return (
-                            <>
-                                {/* {console.log(input)} */}
-                                {desc && <Label>{desc}</Label>}
-                                {min !== null &&
-                                max !== null &&
-                                max - min < 1000 ? (
-                                    <Range
-                                        min={min}
-                                        max={max}
-                                        step={step}
-                                        {...input}
-                                    />
-                                ) : (
-                                    <InputNumber
-                                        type='number'
-                                        {...input}
-                                        placeholder={prettyKey}
-                                    />
-                                )}
-                                <Field
-                                    name={previousKey}
-                                    component={errorMessage}
-                                />
-                            </>
-                        )
-                    }}
-                </Field>
-            )
+            return <NumberInput name={previousKey} label={label} />
         case 'boolean': {
-            return (
-                <Field
-                    type='checkbox'
-                    key={previousKey + schema.title}
-                    name={previousKey}
-                >
-                    {({ input, meta }) => (
-                        <>
-                            {desc && <Label>{desc}</Label>}
-                            <Checkbox {...input} label={prettyKey} />
-                            <Field
-                                name={previousKey}
-                                component={errorMessage}
-                            />
-                        </>
-                    )}
-                </Field>
-            )
+            return <Switch name={previousKey} label={label} />
         }
         default:
-            throw Error(JSON.stringify(schema, null, '    ') + ' not implemented ')
+            throw Error(
+                JSON.stringify(schema, null, '    ') + ' not implemented '
+            )
     }
 }
 
@@ -422,6 +139,5 @@ const humanize = (value: string) => {
 //     flex-direction: row;
 //     justify-content: space-between;
 // `
-
 
 export default mapSchemaToComponents

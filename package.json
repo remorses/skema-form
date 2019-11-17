@@ -22,6 +22,7 @@
     "typescript": "^3.5.1"
   },
   "dependencies": {
+    "@atlaskit/select": "^11.0.1",
     "@blueprintjs/core": "^3.17.2",
     "@types/color": "^3.0.0",
     "@types/json-pointer": "^1.0.30",

@@ -9,15 +9,9 @@
             "description": ""
         },
         "y": {
-            "anyOf": [
-                {
-                    "const": "Str",
-                    "title": "Str"
-                },
-                {
-                    "const": "cosa",
-                    "title": "cosa"
-                }
+            "enum": [
+                "Str",
+                "cosa"
             ],
             "description": ""
         }

@@ -5,14 +5,12 @@ import { Form, Field, FormRenderProps, FormProps } from 'react-final-form'
 
 import Ajv from 'ajv'
 import * as pointer from 'json-pointer'
-import arrayMutators from 'final-form-arrays'
 import { Components } from './types'
 import mapSchemaToComponents from './mapSchemaToComponents'
 
 const ajv = new Ajv({ jsonPointers: true, allErrors: true })
 
 export interface Props {
-    components: Components
     schema: any
     onSubmit?: Function
     onChange?: Function
@@ -24,13 +22,11 @@ export interface Props {
 export const SchemaForm = ({
     onSubmit = (data) => alert(JSON.stringify(data)),
     schema,
-    components,
     submitButton = null, // <button type='submit'>go</button>,
     onChange = ({ value }) => null,
     value = {} as any,
     skipValidation = false
 }: Props) => {
-    components = { ...components }
     const validateSchema = React.useMemo(() => ajv.compile(schema), [schema])
     const validate = (data) => {
         // console.log('validating')
@@ -72,10 +68,7 @@ export const SchemaForm = ({
                 initialValues={value || { root: makeInitialValues(schema) }}
                 // validateOnBlur={true}
                 onSubmit={onSubmit as any}
-                validate={validate}
-                mutators={{
-                    ...arrayMutators
-                }}
+                validate={skipValidation ? undefined : validate}
                 render={({
                     handleSubmit,
                     values,
@@ -85,7 +78,7 @@ export const SchemaForm = ({
                         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
                             {mapSchemaToComponents({
                                 schema,
-                                components,
+                                components:{} as any,
                                 previousKey: 'root',
                                 skipValidation,
                                 formProps: {

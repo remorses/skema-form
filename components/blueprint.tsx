@@ -16,6 +16,11 @@ interface BaseProps {
 }
 
 
+const Nothing = ({children, ...rest}) => <>{children}</>
+export const RootContainer = Nothing
+export const PropertyContainer = Nothing
+export const ObjectContainer = Nothing
+
 const getEventValue = (e) => {
     let value
     try {
@@ -49,7 +54,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 const ErrorMessage = ({ meta }) => {
     return (
         <Text color='red' fontSize='13px'>
-            {meta.error || ' '}
+            {meta.touched && meta.error  || ' '}
         </Text>
     )
 }
@@ -119,11 +124,7 @@ export const TagsField = ({
     return (
         <bp.FormGroup
             label={label}
-            helperText={
-                <Text color='red' fontSize='13px'>
-                    {meta.error || ' '}
-                </Text>
-            }
+            helperText={<ErrorMessage meta={meta}/>}
         >
             <bp.TagInput
                 large
@@ -135,6 +136,10 @@ export const TagsField = ({
         </bp.FormGroup>
     )
 }
+
+
+
+
 
 export const SliderField = ({
     name,
