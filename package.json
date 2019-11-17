@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "test": "mocha --require ts-node/register --timeout 10000 tests/* --colors",
-    "example": "npm i --no-save react react-dom && parcel example/index.html"
+    "example": "npm i --no-save react react-dom styled-components antd && parcel serve --no-autoinstall  example/index.html"
   },
   "keywords": [],
   "author": "Tommaso De Rossi, morse <beats.by.morse@gmail.com>",
@@ -22,19 +22,24 @@
     "typescript": "^3.5.1"
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.17.2",
     "@types/color": "^3.0.0",
     "@types/json-pointer": "^1.0.30",
     "@types/react": "^16.9.2",
     "@types/styled-components": "^4.1.18",
     "ajv": "^6.10.2",
+    "antd": "^3.25.2",
     "color": "^3.1.2",
     "final-form": "^4.18.2",
     "final-form-arrays": "^3.0.1",
-    "hybrid-components": "^2.0.22",
+    "hybrid-components": "^2.0.27",
     "json-pointer": "^0.6.0",
     "lodash.clonedeep": "^4.5.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-final-form": "^6.3.0",
-    "react-final-form-arrays": "^3.1.0"
+    "react-final-form-arrays": "^3.1.0",
+    "styled-components": "^4.4.1"
   },
   "peerDependencies": {
     "@atlaskit/banner": "^10.0.8",

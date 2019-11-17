@@ -1,6 +1,6 @@
 import * as React from 'react'
 import clonedeep from 'lodash.clonedeep'
-import { Form, Field, FormRenderProps } from 'react-final-form'
+import { Form, Field, FormRenderProps, FormProps } from 'react-final-form'
 // import * as jsonschema from 'jsonschema'
 
 import Ajv from 'ajv'
@@ -18,15 +18,17 @@ export interface Props {
     onChange?: Function
     value?: any
     submitButton?: any
+    skipValidation?: boolean
 }
 
 export const SchemaForm = ({
-    onSubmit=data => alert(JSON.stringify(data)),
+    onSubmit = (data) => alert(JSON.stringify(data)),
     schema,
     components,
     submitButton = null, // <button type='submit'>go</button>,
-    onChange = ({value}) => null,
-    value={} as any,
+    onChange = ({ value }) => null,
+    value = {} as any,
+    skipValidation = false
 }: Props) => {
     components = { ...components }
     const validateSchema = React.useMemo(() => ajv.compile(schema), [schema])
@@ -69,7 +71,7 @@ export const SchemaForm = ({
             <Form
                 initialValues={value || { root: makeInitialValues(schema) }}
                 // validateOnBlur={true}
-                onSubmit={onSubmit}
+                onSubmit={onSubmit as any}
                 validate={validate}
                 mutators={{
                     ...arrayMutators
@@ -81,10 +83,16 @@ export const SchemaForm = ({
                 }: FormRenderProps) => (
                     <>
                         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                            {mapSchemaToComponents(schema, components, 'root', {
-                                ...rest,
-                                values,
-                                handleSubmit
+                            {mapSchemaToComponents({
+                                schema,
+                                components,
+                                previousKey: 'root',
+                                skipValidation,
+                                formProps: {
+                                    ...rest,
+                                    values,
+                                    handleSubmit
+                                } as any
                             })}
                             {submitButton}
                         </form>

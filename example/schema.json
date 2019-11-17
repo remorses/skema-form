@@ -11,10 +11,12 @@
         "y": {
             "anyOf": [
                 {
-                    "const": "Str"
+                    "const": "Str",
+                    "title": "Str"
                 },
                 {
-                    "const": "cosa"
+                    "const": "cosa",
+                    "title": "cosa"
                 }
             ],
             "description": ""

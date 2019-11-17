@@ -6,12 +6,13 @@ import { FieldArray } from 'react-final-form-arrays'
 import { Components } from './types'
 import { Row, Hidden } from 'hybrid-components'
 
-const mapSchemaToComponents = (
+const mapSchemaToComponents = ({
     schema,
-    components: Components,
+    components,
     previousKey = 'root',
+    skipValidation,
     formProps = {} as FormRenderProps
-) => {
+}) => {
     const {
         Input,
         InputNumber,
@@ -29,7 +30,7 @@ const mapSchemaToComponents = (
         PropertyContainer
     } = components
     const errorMessage = ({ meta }) => (
-        <>
+        skipValidation ? <></> : <>
             {/* {console.log(JSON.stringify(meta, null, '\t'))} */}
             {meta.error && meta.touched ? (
                 <ErrorMessage>{meta.error}</ErrorMessage>
@@ -49,7 +50,7 @@ const mapSchemaToComponents = (
             .replace(/\[\d\]/, '')
     )
     const title = humanize(schema.title || '')
-    const desc = humanize(schema.description || title || '')
+    const desc = humanize(schema.description || title || previousKey || '')
     if (schema.anyOf) {
         const items: string[] = schema.anyOf.map((x) => x.title)
         const choiceKey = previousKey + 'Choice'
@@ -91,12 +92,13 @@ const mapSchemaToComponents = (
                         // console.log(previousKey)
                         return (
                             <>
-                                {mapSchemaToComponents(
-                                    subset,
+                                {mapSchemaToComponents({
+                                    schema: subset,
                                     components,
                                     previousKey,
+                                    skipValidation,
                                     formProps
-                                )}
+                                })}
                             </>
                         )
                     }}
@@ -180,12 +182,13 @@ const mapSchemaToComponents = (
                 >
                     {Object.entries(properties).map(([name, subset]) => (
                         <PropertyContainer key={previousKey + name}>
-                            {mapSchemaToComponents(
-                                subset,
+                            {mapSchemaToComponents({
+                                schema: subset,
                                 components,
-                                `${previousKey}.${name}`,
+                                skipValidation,
+                                previousKey: `${previousKey}.${name}`,
                                 formProps
-                            )}
+                            })}
                         </PropertyContainer>
                     ))}
                 </Container>
@@ -237,16 +240,17 @@ const mapSchemaToComponents = (
                                         return (
                                             // <PropertyContainer key={name}>
                                                 <Row key={name}>
-                                                    {mapSchemaToComponents(
-                                                        {
+                                                    {mapSchemaToComponents({
+                                                        schema: {
                                                             ...subset,
                                                             description: '',
                                                             title: ''
                                                         },
                                                         components,
-                                                        name,
+                                                        skipValidation,
+                                                        previousKey: name,
                                                         formProps
-                                                    )}
+                                                    })}
                                                     <Button
                                                         onClick={() =>
                                                             fields.remove(index)
