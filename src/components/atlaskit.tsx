@@ -19,7 +19,7 @@ import InlineMessage from '@atlaskit/inline-message'
 // @ts-ignore
 import { RadioGroup, Radio } from '@atlaskit/radio'
 
-import { Components } from '../src/types'
+import { Components } from '../types'
 import { useForm } from 'react-final-form';
 
 const PropertyContainer = styled.div`

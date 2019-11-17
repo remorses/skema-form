@@ -8,7 +8,7 @@ import {
     Switch,
     NumberInput,
     TagsField
-} from '../components/blueprint'
+} from '../src/components/blueprint'
 import './reset.css'
 import { Box } from 'hybrid-components'
 import { Form } from 'react-final-form'

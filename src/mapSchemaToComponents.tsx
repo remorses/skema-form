@@ -13,7 +13,7 @@ import {
     TextField,
     NumberInput,
     Switch
-} from '../components/blueprint'
+} from './components/blueprint'
 
 const mapSchemaToComponents = ({
     schema,

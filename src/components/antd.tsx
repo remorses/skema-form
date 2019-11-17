@@ -15,7 +15,7 @@ import {
     Card, 
     // @ts-ignore
 } from 'antd'
-import {Components} from '../src/types'
+import {Components} from '../types'
 
 
 
