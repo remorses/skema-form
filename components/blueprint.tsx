@@ -81,7 +81,7 @@ export const Select = ({
     const { input, meta } = useField(name)
     useEffect(() => {
         input.onChange(options[0].value)
-    })
+    }, [])
     return (
         <bp.FormGroup label={label} helperText={<ErrorMessage meta={meta}/>}>
             <bp.HTMLSelect fill={true} options={options} {...input} {...rest} />
@@ -96,6 +96,9 @@ export const Switch = ({
     ...rest
 }: BaseProps & bp.IInputGroupProps & any) => {
     const { input, meta } = useField(name, {type: 'checkbox'})
+    useEffect(() => {
+        input.onChange(false)
+    }, [])
     return (
         <bp.FormGroup  helperText={<ErrorMessage meta={meta}/>}>
             <bp.Switch  label={label} {...input} {...rest} />

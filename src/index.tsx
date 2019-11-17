@@ -12,21 +12,23 @@ const ajv = new Ajv({ jsonPointers: true, allErrors: true })
 
 export interface Props {
     schema: any
-    onSubmit?: Function
     onChange?: Function
     value?: any
-    submitButton?: any
     skipValidation?: boolean
 }
 
+export type SchemaFormState = Omit<FormRenderProps, "handleSubmit">
+
 export const SchemaForm = ({
-    onSubmit = (data) => alert(JSON.stringify(data)),
     schema,
-    submitButton = null, // <button type='submit'>go</button>,
     onChange = ({ value }) => null,
     value = {} as any,
     skipValidation = false
 }: Props) => {
+    const [state, setState] = React.useState({ values: {} } as SchemaFormState)
+    React.useEffect(() => {
+        onChange(state)
+    }, [state])
     const validateSchema = React.useMemo(() => ajv.compile(schema), [schema])
     const validate = (data) => {
         // console.log('validating')
@@ -67,18 +69,24 @@ export const SchemaForm = ({
             <Form
                 initialValues={value || { root: makeInitialValues(schema) }}
                 // validateOnBlur={true}
-                onSubmit={onSubmit as any}
+                onSubmit={() => {}}
                 validate={skipValidation ? undefined : validate}
                 render={({
                     handleSubmit,
                     values,
                     ...rest
-                }: FormRenderProps) => (
-                    <>
-                        <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+                }: FormRenderProps) => {
+                    setState((state) =>
+                        state.values !== values['root']
+                            ? { values: values['root'], ...rest }
+                            : state
+                    )
+
+                    return (
+                        <>
                             {mapSchemaToComponents({
                                 schema,
-                                components:{} as any,
+                                components: {} as any,
                                 previousKey: 'root',
                                 skipValidation,
                                 formProps: {
@@ -87,11 +95,9 @@ export const SchemaForm = ({
                                     handleSubmit
                                 } as any
                             })}
-                            {submitButton}
-                        </form>
-                        {onChange(values['root'])}
-                    </>
-                )}
+                        </>
+                    )
+                }}
             />
         </>
     )

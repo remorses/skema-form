@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SchemaForm } from '../src'
+import { SchemaForm, SchemaFormState } from '../src'
 import { render } from 'react-dom'
 // import antdComponents from '../components/antd'
 import {
@@ -12,22 +12,29 @@ import {
 import './reset.css'
 import { Box } from 'hybrid-components'
 import { Form } from 'react-final-form'
+import { Card, Button } from '@blueprintjs/core'
 
 const App = () => {
     const onSubmit = (data) => {
         alert(data)
     }
-    const [state, set] = useState({})
+    const [state, set] = useState({ values: {} } as SchemaFormState)
     console.log(state)
     return (
-        <Box>
-            <SchemaForm
-                onChange={set}
-                onSubmit={onSubmit}
-                schema={require('./schema.json')}
-                skipValidation={true}
-            />
-            <Box><pre>{JSON.stringify(state, null, 4)}</pre></Box>
+        <Box p='20px'>
+            <Card elevation={3}>
+                <SchemaForm
+                    onChange={set}
+                    schema={require('./schema.json')}
+                    skipValidation={false}
+                />
+            </Card>
+            <Box>
+                <pre>{JSON.stringify(state.values, null, 4)}</pre>
+            </Box>
+            <Button disabled={state.invalid} onClick={() => alert(state)}>
+                Submit
+            </Button>
         </Box>
     )
 }
