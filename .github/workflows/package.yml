@@ -15,8 +15,6 @@ jobs:
       - run: npm ci
       - run: "npm i --no-save @blueprintjs/core react styled-components"
       - run: npm version --no-git-tag-version patch
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
       - name: Bump version
         uses: remorses/bump-version@js
         with:
@@ -24,6 +22,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: tsc && npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
 
 
