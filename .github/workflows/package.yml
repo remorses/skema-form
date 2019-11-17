@@ -13,7 +13,9 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: npm i --no-save @blueprintjs/core react styled-components
       # - run: npm test
+      - run: tsc && npm publish
       - run: npm version --no-git-tag-version patch
       - name: Bump version
         uses: remorses/bump-version@js
@@ -21,7 +23,6 @@ jobs:
           version_file: VERSION
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: tsc && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
