@@ -60,6 +60,20 @@ export const Select = ({
     )
 }
 
+export const Switch = ({
+    name,
+    label = '',
+    options=[],
+    ...rest
+}: BaseProps & bp.IInputGroupProps & any) => {
+    const { input, meta } = useField(name)
+    return (
+        <bp.FormGroup  helperText={<ErrorMessage meta={meta}/>}>
+            <bp.Switch large  label={label}  fill={true} {...input} {...rest} />
+        </bp.FormGroup>
+    )
+}
+
 
 export const TagsField = ({
     name,

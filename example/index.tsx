@@ -2,7 +2,7 @@ import React from 'react'
 import { SchemaForm } from '../src'
 import { render } from 'react-dom'
 // import antdComponents from '../components/antd'
-import { TextField, Select } from '../components/blueprint'
+import { TextField, Select, Switch } from '../components/blueprint'
 import './reset.css'
 import { Box } from 'hybrid-components'
 import { Form } from 'react-final-form'
@@ -26,6 +26,7 @@ const App = () => {
                         <>
                             <TextField label='caio' name='ciao' />
                             <Select label='caio' name='sdfciao' options={opts} />
+                            <Switch label='caio' name='dfòkgjdklfg'  />
                         </>
                     )
                 }}
