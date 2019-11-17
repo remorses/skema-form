@@ -18,12 +18,28 @@
                 "js"
             ],
             "description": "choose lang"
+        },
+        "another_obj": {
+            "type": "object",
+            "properties": {
+                "x": {
+                    "type": "number",
+                    "multipleOf": 1.0,
+                    "description": "x coordinate"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "x"
+            ],
+            "description": ""
         }
     },
     "additionalProperties": false,
     "required": [
         "resolve",
         "ref",
-        "language"
+        "language",
+        "another_obj"
     ]
 }

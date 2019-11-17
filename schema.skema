@@ -13,4 +13,9 @@ Options:
     choose lang
     """
     language: "python" | "js"
+    another_obj:
+        """
+        x coordinate
+        """
+        x: Int
 
