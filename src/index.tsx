@@ -89,7 +89,7 @@ export const SchemaForm = ({
                             })}
                             {submitButton}
                         </form>
-                        {onChange({ value: values, ...rest })}
+                        {onChange(values['root'])}
                     </>
                 )}
             />

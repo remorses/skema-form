@@ -1,6 +1,10 @@
 
 
-Obj:
-    x: Str
-    y: "Str" | "cosa"
+Options:
+    resolve: Bool
+    """
+    Reference to resolve or make root
+    """
+    ref: Str
+    language: "python" | "js"
 

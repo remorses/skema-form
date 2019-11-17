@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SchemaForm } from '../src'
 import { render } from 'react-dom'
 // import antdComponents from '../components/antd'
@@ -17,15 +17,17 @@ const App = () => {
     const onSubmit = (data) => {
         alert(data)
     }
+    const [state, set] = useState({})
+    console.log(state)
     return (
         <Box>
             <SchemaForm
-                components={null as any}
+                onChange={set}
                 onSubmit={onSubmit}
                 schema={require('./schema.json')}
                 skipValidation={true}
             />
-            <Box></Box>
+            <Box><pre>{JSON.stringify(state, null, 4)}</pre></Box>
         </Box>
     )
 }

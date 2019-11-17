@@ -32,6 +32,7 @@ const mapSchemaToComponents = ({
     const title = humanize(schema.title || '')
     const desc = humanize(schema.description || title || prettyKey || '')
     const label = desc
+    const placeholder = title || prettyKey
 
     if (schema.enum) {
         const transformer = transform(schema)
@@ -46,6 +47,7 @@ const mapSchemaToComponents = ({
                 name={previousKey}
                 label={label}
                 options={options}
+                placeholder={placeholder}
             />
         )
     }
