@@ -41,6 +41,12 @@ const adaptInput = ({input, transformer=x => x, onChangeName='onChange'}) => {
     return input
 }
 
+const skeletonClass = loading => {
+    return loading ? 
+    {className: 'bp3-skeleton'} : {}
+}
+
+
 const styles: { [key: string]: React.CSSProperties } = {
     table: {
         width: '100%',
