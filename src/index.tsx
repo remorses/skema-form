@@ -17,7 +17,7 @@ export interface Props {
     skipValidation?: boolean
 }
 
-export type SchemaFormState = Omit<FormRenderProps, "handleSubmit">
+export type SchemaFormState = Omit<FormRenderProps, 'handleSubmit'>
 
 export const SchemaForm = ({
     schema,
@@ -30,6 +30,9 @@ export const SchemaForm = ({
         onChange(state)
     }, [state])
     const validateSchema = React.useMemo(() => ajv.compile(schema), [schema])
+    if (Object.keys(schema).length === 0 && schema.constructor === Object) {
+        return <></>
+    }
     const validate = (data) => {
         // console.log('validating')
         // console.log(JSON.stringify(ajv.errors, null, '\t'))
